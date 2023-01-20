@@ -10,10 +10,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  const jsonValue = JSON.parse(req.body);
+  console.log(jsonValue);
   const user = await client.user.create({
-    data: {
-      name: req.body,
-    },
+    data: jsonValue,
   });
   console.log(user);
   try {

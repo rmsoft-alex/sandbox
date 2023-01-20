@@ -11,7 +11,13 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String?
-  createdAt DateTime @default(now())
+  id                 Int      @id @default(autoincrement())
+  email              String   @unique
+  password           String
+  nickName           String
+  address            String
+  collectionPrivacy  Boolean
+  usePrivacy         Boolean
+  advertisement      Boolean
+  createdAt          DateTime @default(now())
 }
