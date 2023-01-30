@@ -1,9 +1,23 @@
 import React, { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 const ErrorMesage = styled.div`
   color: red;
+`;
+
+const SubmitInput = styled.input`
+  width: 300px;
+  height: 40px;
+  border: none;
+  border-radius: 3px;
+  font-size: 15px;
+  text-align: center;
+  background-color: ${(props) => (props.disabled ? "#e0e0e0" : "#3498db")};
+  color: white;
+
+  cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 `;
 
 interface JoinDetail {
@@ -23,8 +37,10 @@ const Join = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<JoinDetail>();
+
+  const router = useRouter();
 
   const passwordRef = useRef<string | null>(null);
   passwordRef.current = watch("password");
@@ -42,6 +58,10 @@ const Join = () => {
         advertisement: data.advertisement,
       }),
     }).then((res) => res.json());
+
+    if (res.result === "성공") {
+      router.push("/wrkr/done");
+    }
   };
 
   return (
@@ -171,7 +191,7 @@ const Join = () => {
         광고 동의 (선택)
         <a href="#">보기</a>
       </div>
-      <input type="submit" value="가입하기" />
+      <SubmitInput disabled={!isValid} type="submit" value="가입하기" />
     </form>
   );
 };

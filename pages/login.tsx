@@ -34,6 +34,8 @@ const SubmitInput = styled.input`
   text-align: center;
   background-color: #3498db;
   color: white;
+
+  cursor: pointer;
 `;
 
 const ErrorMesage = styled.div`
